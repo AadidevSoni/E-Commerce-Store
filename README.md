@@ -61,3 +61,17 @@ index.js
 
 On running npm run backend, whatever is in the index.js runs
 To run the front end, we write npm run frontend
+
+Creating db.js in config aqnd connecting it to MongoDB
+Creating .env with port and URI and using it in db.js
+Adding "type":"module" to package.json
+
+Importing all packages and utiles and running the app and listening to the port
+
+POSTMAN
+Open Postman and add a blank collect new Request and add http://localhost:8000/ and SEND to see if the backend works
+
+Download Tailwindcss as per:
+https://tailwindcss.com/docs/installation/using-vite
+
+Do all necessary commands and create an index.css and tailwind in App.jsx and dont forget to import './index.css'; in main.jsx
