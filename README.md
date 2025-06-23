@@ -20,7 +20,9 @@
 <p>Create backend folder</p>
 
 <h2>Installing every dependencies for backend:</h2>
-<h3>npm i nodemon multer mongoose jsonwebtoken express-formidable express-async-handler express dotenv cors cookie-parser concurrently bcryptjs</h3>
+<p>npm i nodemon multer mongoose jsonwebtoken express-formidable express-async-handler express dotenv cors cookie-parser concurrently bcryptjs</p>
+
+<h2>Use of each Packages</h2>
 
 <h2>🔁 nodemon</h2>
 Use: Automatically restarts your Node.js server when file changes are detected.
@@ -72,11 +74,65 @@ Example: Hash user passwords before saving to the database and compare during lo
 
 <h2>Installing every dependencies for frontend:</h2>
 <p>cd frontend </p>
-<h3>npm i slick-carousel react-slick react-toastify react-router react-router-dom react-redux react-icons apexcharts rea
-ct-apexcharts moment flowbite axios @reduxjs/toolkit @paypal/react-paypal-js</h3>
+<p>npm i slick-carousel react-slick react-toastify react-router react-router-dom react-redux react-icons apexcharts rea
+ct-apexcharts moment flowbite axios @reduxjs/toolkit @paypal/react-paypal-js</p>
+
+<h2>Use of each Packages</h2>
+
+<h2>🎠 slick-carousel</h2>
+Use: CSS/JS files for carousel/slider styling used by react-slick.
+Example: Enables responsive image sliders or product carousels.
+
+<h2>🚗 react-slick</h2>
+Use: React component for building carousels/sliders.
+Example: Product sliders on an e-commerce homepage.
+
+<h2>🔔 react-toastify</h2>
+Use: Display toast notifications (e.g., success, error, info messages).
+Example: “Product added to cart” or “Login failed” popup.
+
+<h2>🧭 react-router and react-router-dom</h2>
+Use: For routing/navigation in React apps.
+Example: Page navigation without full page reloads.
+
+<h2>🧠 react-redux</h2>
+Use: Connects React with Redux for global state management.
+Example: Share user data or cart items across components.
+
+<h2>🎨 react-icons</h2>
+Use: Easily use popular icons (FontAwesome, Bootstrap Icons, etc.) in React.
+Example: Add shopping cart or menu icons without SVG files.
+
+<h2>📊 apexcharts</h2>
+Use: A charting library to visualize data.
+Example: Sales charts, order trends, etc.
+
+<h2>📊 react-apexcharts</h2>
+Use: React wrapper for apexcharts.
+Example: Use ApexCharts in React with simple components.
+
+<h2>🕒 moment</h2>
+Use: Date and time manipulation.
+Example: Format timestamps like 2 hours ago, 12/06/2024.
+
+<h2>💧 flowbite</h2>
+Use: UI component library built on Tailwind CSS.
+Example: Add pre-styled modals, buttons, and navbars quickly.
+
+<h2>🔗 axios</h2>
+Use: Promise-based HTTP client for making API requests.
+Example: Fetch products from your backend or send login data.
+
+<h2>🧰 @reduxjs/toolkit</h2>
+Use: Official, modern way to write Redux logic with less boilerplate.
+Example: Create slices for cart, user, or orders; better dev experience than vanilla Redux.
+
+<h2>💸 @paypal/react-paypal-js</h2>
+Use: Integrate PayPal checkout buttons into your React app.
+Example: Allow users to make payments through PayPal on your e-commerce platform.
 
 <h2>CLEANUP:</h2>
-frontend - public , src > assets , App.css , index.css 
+<p>frontend - public , src > assets , App.css , index.css</p>
 
 <h2>App.jsx modified to:</h2>
 
@@ -85,21 +141,21 @@ frontend - public , src > assets , App.css , index.css
   return (
     <>Hello</>
   )
-}</p>
+}
 
-export default App
+export default App</p>
 
 <h2>main.jsx modified to remove:</h2>
 
-import index.jss
+<p>import index.jss</p>
 
 <h2>Scripts in package.json:</h2>
 
-"scripts": {
+<p>"scripts": {
   "backend": "nodemon backend/index.js",
   "frontend": "npm run dev --prefix frontend",
   "dev": "concurrently \"npm run frontend\" \"npm run backend\""
-},
+},</p>
 
 <h2>backend folder creation:</h2>
 <ul>
@@ -116,7 +172,7 @@ import index.jss
 <h3>To run the front end, we write npm run frontend</h3>
 
 <uL>
-  <li>Creating db.js in config aqnd connecting it to MongoDB</li>
+  <li>Creating db.js in config and connecting it to MongoDB</li>
   <li>Creating .env with port and URI and using it in db.js</li>
   <li>Adding "type":"module" to package.json</li>
   <li>Importing all packages and utiles and running the app and listening to the port</li>
