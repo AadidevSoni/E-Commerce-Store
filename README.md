@@ -1,5 +1,5 @@
 # E-Commerce-Store
-Building an E-Commerce Store
+<h1>Building an E-Commerce Store</h1>
 
 Setup:
 
