@@ -3,25 +3,72 @@
 
 <h1>Setup:</h1>
 
-<h2>Install tailwindcss using vite inside frontend folder:</h2>
-
+<h2>Creating frontend folder with react vite environment</h2>
 <ul>
   <li>Open the folder with terminal and run:</li>
   <li>npm create vite@latest frontend -- --template react</li>
 </ul>
-<h2>Then, to install all dependencies:</h2>
 
+<h2>Then, to install all dependencies:</h2>
 <ul>
   <li>cd frontend</li>
   <li>npm i </li>
 </ul>
 
 <p>Now, Open folder in VS Code and you will have all dependencies in frontend folder</p>
-<p>npm init -y to initialize your project in main folder</p>
+<p>npm init -y to initialize your project in main folder. This creates package.json</p>
 <p>Create backend folder</p>
 
 <h2>Installing every dependencies for backend:</h2>
 <h3>npm i nodemon multer mongoose jsonwebtoken express-formidable express-async-handler express dotenv cors cookie-parser concurrently bcryptjs</h3>
+
+<h2>🔁 nodemon</h2>
+Use: Automatically restarts your Node.js server when file changes are detected.
+Example: Useful in development to avoid manually restarting the server every time you change a file.
+
+<h2>📦 multer</h2>
+Use: Middleware for handling multipart/form-data, used for uploading files.
+Example: File/image uploads in user profiles or product listings.
+
+<h2>🍃 mongoose</h2>
+Use: ODM (Object Data Modeling) library for MongoDB.
+Example: Allows defining schemas and models for interacting with MongoDB documents using JavaScript.
+
+<h2>🔐 jsonwebtoken</h2>
+Use: Creates and verifies JWT (JSON Web Tokens) for authentication and authorization.
+Example: Used to protect routes and verify users in login/signup systems.
+
+<h2>📝 express-formidable</h2>
+Use: Parses form data, including file uploads (alternative to multer, simpler but less powerful).
+Example: Used to handle form submissions without needing separate body-parser or multer.
+
+<h2>⚙️ express-async-handler</h2>
+Use: Simplifies error handling in async/await route handlers.
+Example: Wrap your async controller functions to automatically forward errors to Express error middleware.
+
+<h2>🌍 express</h2>
+Use: Core framework for building web servers and APIs in Node.js.
+Example: Handles routing, middleware, HTTP methods, etc.
+
+<h2>🔐 dotenv</h2>
+Use: Loads environment variables from .env file into process.env.
+Example: Store secrets like DB_URI, JWT_SECRET, PORT, etc.
+
+<h2>🔄 cors</h2>
+Use: Enables Cross-Origin Resource Sharing.
+Example: Allow your frontend (e.g., running on localhost:3000) to access your backend server (localhost:5000).
+
+<h2>🍪 cookie-parser</h2>
+Use: Parses Cookie header and populates req.cookies with an object.
+Example: Used for session management or JWT stored in cookies.
+
+<h2>🚀 concurrently</h2>
+Use: Runs multiple commands/scripts in parallel.
+Example: Run both frontend (npm start) and backend (npm run dev) in one command:
+
+<h2>🔐 bcryptjs</h2>
+Use: Library for hashing passwords.
+Example: Hash user passwords before saving to the database and compare during login.
 
 <h2>Installing every dependencies for frontend:</h2>
 <p>cd frontend </p>
