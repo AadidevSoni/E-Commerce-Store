@@ -54,28 +54,31 @@ import index.jss
   "dev": "concurrently \"npm run frontend\" \"npm run backend\""
 },
 
-backend folder creation:
-config
-contollers
-middlewares
-models
-routes
-utils
-index.js
+<h2>backend folder creation:</h2>
+<ul>
+  <li>config</li>
+  <li>contollers</li>
+  <li>middlewares</li>
+  <li>models</li>
+  <li>routes</li>
+  <li>utils</li>
+  <li>index.js</li>
+</ul>
 
-On running npm run backend, whatever is in the index.js runs
-To run the front end, we write npm run frontend
+<h3>On running npm run backend, whatever is in the index.js runs</h3>
+<h3>To run the front end, we write npm run frontend</h3>
 
-Creating db.js in config aqnd connecting it to MongoDB
-Creating .env with port and URI and using it in db.js
-Adding "type":"module" to package.json
+<uL>
+  <li>Creating db.js in config aqnd connecting it to MongoDB</li>
+  <li>Creating .env with port and URI and using it in db.js</li>
+  <li>Adding "type":"module" to package.json</li>
+  <li>Importing all packages and utiles and running the app and listening to the port</li>
+</ul>
 
-Importing all packages and utiles and running the app and listening to the port
+<h2>POSTMAN</h2>
+<p>Open Postman and add a blank collect new Request and add http://localhost:8000/ and SEND to see if the backend works</p>
 
-POSTMAN
-Open Postman and add a blank collect new Request and add http://localhost:8000/ and SEND to see if the backend works
-
-Download Tailwindcss as per:
-https://tailwindcss.com/docs/installation/using-vite
+<h2>Download Tailwindcss as per:</h2>
+<h3>https://tailwindcss.com/docs/installation/using-vite</h3>
 
 Do all necessary commands and create an index.css and tailwind in App.jsx and dont forget to import './index.css'; in main.jsx
