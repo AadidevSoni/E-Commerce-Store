@@ -33,12 +33,12 @@ frontend - public , src > assets , App.css , index.css
 
 <h2>App.jsx modified to:</h2>
 
-function App() {
+<p>function App() {
 
   return (
     <>Hello</>
   )
-}
+}</p>
 
 export default App
 
