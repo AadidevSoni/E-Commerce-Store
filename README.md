@@ -1,33 +1,37 @@
 # E-Commerce-Store
 <h1>Building an E-Commerce Store</h1>
 
-Setup:
+<h1>Setup:</h1>
 
-Install tailwindcss using vite inside frontend folder:
+<h2>Install tailwindcss using vite inside frontend folder:</h2>
 
-Open the folder with terminal and run:
-npm create vite@latest frontend -- --template react
-then to install all dependencies:
-cd frontend
-npm i 
-Now, Open folder in VS Code and you will have all dependencies in frontend folder
+<ul>
+  <li>Open the folder with terminal and run:</li>
+  <li>npm create vite@latest frontend -- --template react</li>
+</ul>
+<h2>Then, to install all dependencies:</h2>
 
-npm init -y to initialize your project in main folder
+<ul>
+  <li>cd frontend</li>
+  <li>npm i </li>
+</ul>
 
-Create backend folder
+<p>Now, Open folder in VS Code and you will have all dependencies in frontend folder</p>
+<p>npm init -y to initialize your project in main folder</p>
+<p>Create backend folder</p>
 
-Installing every dependencies for backend:
-npm i nodemon multer mongoose jsonwebtoken express-formidable express-async-handler express dotenv cors cookie-parser concurrently bcryptjs
+<h2>Installing every dependencies for backend:</h2>
+<h3>npm i nodemon multer mongoose jsonwebtoken express-formidable express-async-handler express dotenv cors cookie-parser concurrently bcryptjs</h3>
 
-Installing every dependencies for frontend:
-cd frontend 
-npm i slick-carousel react-slick react-toastify react-router react-router-dom react-redux react-icons apexcharts rea
-ct-apexcharts moment flowbite axios @reduxjs/toolkit @paypal/react-paypal-js
+<h2>Installing every dependencies for frontend:</h2>
+<p>cd frontend </p>
+<h3>npm i slick-carousel react-slick react-toastify react-router react-router-dom react-redux react-icons apexcharts rea
+ct-apexcharts moment flowbite axios @reduxjs/toolkit @paypal/react-paypal-js</h3>
 
-CLEANUP:
+<h2>CLEANUP:</h2>
 frontend - public , src > assets , App.css , index.css 
 
-App.jsx modified to:
+<h2>App.jsx modified to:</h2>
 
 function App() {
 
@@ -38,11 +42,11 @@ function App() {
 
 export default App
 
-main.jsx modified to remove:
+<h2>main.jsx modified to remove:</h2>
 
 import index.jss
 
-Scripts in package.json:
+<h2>Scripts in package.json:</h2>
 
 "scripts": {
   "backend": "nodemon backend/index.js",
