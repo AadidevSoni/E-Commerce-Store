@@ -49,3 +49,15 @@ Scripts in package.json:
   "frontend": "npm run dev --prefix frontend",
   "dev": "concurrently \"npm run frontend\" \"npm run backend\""
 },
+
+backend folder creation:
+config
+contollers
+middlewares
+models
+routes
+utils
+index.js
+
+On running npm run backend, whatever is in the index.js runs
+To run the front end, we write npm run frontend
