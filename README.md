@@ -224,3 +224,11 @@ Do all necessary commands and create an index.css and tailwind in App.jsx and do
 <p>Logout logic is just to delete the cookie that we created on logging in</p>
 <p>Test the logging in and logging out in postman</p>
 <img src="./Images/logout.png">
+
+<h2>Authentication and Authorisation</h2>
+<p>Create authenticate middleware and provide logic for authorisation and authentication</p>
+<p>Now import authenticate and authorization to userRoute and if the user is authentricated nad authorized, we print all users</p>
+<p>Provide the getAllUsers logic in userController</p>
+<p>Postman create a admin account</p>
+<p>Create a new Get request and set link to api/users to get all the users database</p>
+<img src="./Images/allUsers.png">
