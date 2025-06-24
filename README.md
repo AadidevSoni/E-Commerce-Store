@@ -200,7 +200,7 @@ Do all necessary commands and create an index.css and tailwind in App.jsx and do
 <p>The newly created user should be visible in mongoDB database</p>
 <p>But we can see the user password in database</p>
 <p>Handling visibility of password using bcrypt and hashing</p>
-<img src="/Users/aadidev/Desktop/Full Stack Web Dev/E-Commerce-Store/Images/createUser.png">
+<img src="./Images/createUser.png">
 
 <h2>How to create a token and set the token to cookies</h2>
 <p>createToken.js in utils</p>
@@ -216,8 +216,10 @@ Do all necessary commands and create an index.css and tailwind in App.jsx and do
 <p>Authorising user in router using a new link and loginUser controller</p>
 <p>Create loginUser logic in userController</p>
 <p>Go to Postamn and post email and password in http://localhost:8000/api/users/auth to login</p>
+<img src="./Images/login.png">
 <h3>Logging out</h3>
 <p>Create a new link and controller in router for logging out</p>
 <p>>Create logout current user logic in user controller</p>
 <p>Logout logic is just to delete the cookie that we created on logging in</p>
 <p>Test the logging in and logging out in postman</p>
+<img src="./Images/logout.png">
