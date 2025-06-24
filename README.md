@@ -186,6 +186,8 @@ export default App</p>
 
 Do all necessary commands and create an index.css and tailwind in App.jsx and dont forget to import './index.css'; in main.jsx
 
+<img src="./Images/start.png">
+
 <h1>User Management</h1>
 <h2>Creating a new user</h2>
 <p>App uses user api routes in index.js</p>
@@ -232,3 +234,16 @@ Do all necessary commands and create an index.css and tailwind in App.jsx and do
 <p>Postman create a admin account</p>
 <p>Create a new Get request and set link to api/users to get all the users database</p>
 <img src="./Images/allUsers.png">
+
+<h2>Updating specific user data</h2>
+<h3>Getting current user profile</h3>
+<p>Creating a /profile route for updating profile</p>
+<p>Creating getCurrentUserProfile controller</p>
+<p>Getting current profile info in postman</p>
+<img src="./Images/getProfile.png">
+<h3>Updating now</h3>
+<p>Add a put method and update controller to profile route</p>
+<p>Create the update profile logic</p>
+<p>Test in postman with a new put request to update user profile</p>
+<img src="./Images/updateProfile.png">
+
