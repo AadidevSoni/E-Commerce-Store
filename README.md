@@ -147,7 +147,7 @@ export default App</p>
 
 <h2>main.jsx modified to remove:</h2>
 
-<p>import index.jss</p>
+<p>import index.css</p>
 
 <h2>Scripts in package.json:</h2>
 
@@ -185,3 +185,14 @@ export default App</p>
 <h3>https://tailwindcss.com/docs/installation/using-vite</h3>
 
 Do all necessary commands and create an index.css and tailwind in App.jsx and dont forget to import './index.css'; in main.jsx
+
+<h1>User Management</h1>
+<p>App uses user api routes in index.js</p>
+<p>Creating userModel</p>
+<p>Creating userRoutes</p>
+<p>Creating an asyncHandler for catching errors of every async functions</p>
+<p>Creating userController</p>
+<p>Testing it out using Postman using a post request</p>
+<p>Getting user info from body and printing in console</p>
+<p>Providing all validations</p>
+<p>Creating a new user anhd testing it in Postman</p>
