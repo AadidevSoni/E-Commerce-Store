@@ -198,6 +198,7 @@ Do all necessary commands and create an index.css and tailwind in App.jsx and do
 <p>Providing all validations</p>
 <p>Creating a new user anhd testing it in Postman</p>
 <p>The newly created user should be visible in mongoDB database</p>
+<img src="./Images/dbse.png">
 <p>But we can see the user password in database</p>
 <p>Handling visibility of password using bcrypt and hashing</p>
 <img src="./Images/createUser.png">
