@@ -200,6 +200,7 @@ Do all necessary commands and create an index.css and tailwind in App.jsx and do
 <p>The newly created user should be visible in mongoDB database</p>
 <p>But we can see the user password in database</p>
 <p>Handling visibility of password using bcrypt and hashing</p>
+<img src="/Users/aadidev/Desktop/Full Stack Web Dev/E-Commerce-Store/Images/createUser.png">
 
 <h2>How to create a token and set the token to cookies</h2>
 <p>createToken.js in utils</p>
