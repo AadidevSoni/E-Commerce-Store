@@ -208,4 +208,15 @@ Do all necessary commands and create an index.css and tailwind in App.jsx and do
 <p>import createToken in userController</p>
 <p>Create token just after saving the user to the database</p>
 <p>Test by creating a new user in Postman and you can see the cookie creation in postman</p>
-<p>This means that this user is not only in databse but is also succesffully logged in</p>
+<p>This means that this user is not only in database but is also succesffully logged in</p>
+
+<h2>Logging in and Logging out of User</h2>
+<h3>Logging In</h3>
+<p>Authorising user in router using a new link and loginUser controller</p>
+<p>Create loginUser logic in userController</p>
+<p>Go to Postamn and post email and password in http://localhost:8000/api/users/auth to login</p>
+<h3>Logging out</h3>
+<p>Create a new link and controller in router for logging out</p>
+<p>>Create logout current user logic in user controller</p>
+<p>Logout logic is just to delete the cookie that we created on logging in</p>
+<p>Test the logging in and logging out in postman</p>
