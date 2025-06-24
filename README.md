@@ -187,6 +187,7 @@ export default App</p>
 Do all necessary commands and create an index.css and tailwind in App.jsx and dont forget to import './index.css'; in main.jsx
 
 <h1>User Management</h1>
+<h2>Creating a new user</h2>
 <p>App uses user api routes in index.js</p>
 <p>Creating userModel</p>
 <p>Creating userRoutes</p>
@@ -196,3 +197,15 @@ Do all necessary commands and create an index.css and tailwind in App.jsx and do
 <p>Getting user info from body and printing in console</p>
 <p>Providing all validations</p>
 <p>Creating a new user anhd testing it in Postman</p>
+<p>The newly created user should be visible in mongoDB database</p>
+<p>But we can see the user password in database</p>
+<p>Handling visibility of password using bcrypt and hashing</p>
+
+<h2>How to create a token and set the token to cookies</h2>
+<p>createToken.js in utils</p>
+<p>Create token using jwt</p>
+<p>Set JWT as an HTTP only cookie</p>
+<p>import createToken in userController</p>
+<p>Create token just after saving the user to the database</p>
+<p>Test by creating a new user in Postman and you can see the cookie creation in postman</p>
+<p>This means that this user is not only in databse but is also succesffully logged in</p>
