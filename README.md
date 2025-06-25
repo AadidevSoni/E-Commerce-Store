@@ -261,3 +261,32 @@ Do all necessary commands and create an index.css and tailwind in App.jsx and do
 <p>Adding a put method to getUserById on the same id route</p>
 <p>Provide logic for updateUser and test in Postman</p>
 <img src="./Images/updateUser.png">
+
+<h1>Frontend of Users</h1>
+<p>Create folders in frontend src</p>
+<ul>
+  <li>components</li>
+  <li>pages > Admin,User,Auth > Navigation.jsx,Navigation.css</li>
+  <li>User</li>
+  <li>redux</li>
+</ul>
+<p>Provide Navigation css</p>
+<h2>Setup of main.jsx</h2>
+```jsx
+import React from 'react';
+import ReactDOM from "react-dom/client";
+import App from './App.jsx';
+import './index.css';
+import { Route, RouterProvider, createRoutesFromElements } from 'react-router';
+import { createBrowserRouter } from 'react-router';
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' element={<App />} />
+  )
+);
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <RouterProvider router={router} />
+);
+```
