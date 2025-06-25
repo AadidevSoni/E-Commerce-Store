@@ -262,6 +262,379 @@ Do all necessary commands and create an index.css and tailwind in App.jsx and do
 <p>Provide logic for updateUser and test in Postman</p>
 <img src="./Images/updateUser.png">
 
+<h1>Final Code for backend of Users</h2>
+
+<h2>db.js - Connecting to Mongoose database</h2>
+
+```jsx
+import mongoose from "mongoose";
+
+const connectDB = async() => {
+  try {
+
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log("Connected Successfully to MongoDB");
+    
+  } catch (error) {
+    console.error(`ERROR: ${error.message}`);
+    process.exit(1); //Exit out of everything that is running right now
+  }
+}
+
+export default connectDB;
+```
+
+<h2>index.js - Main File that runs on starting the backend</h2>
+
+
+```jsx
+//packages
+import path from 'path'
+import express from 'express'
+import dotenv from 'dotenv'
+import cookieParser from 'cookie-parser'
+
+//Utiles
+import connectDB from './config/db.js'
+import userRoutes from './routes/userRoutes.js'
+
+//dotenv: Loads environment variables from .env into process.env.
+dotenv.config()
+const port = process.env.PORT || 8000;
+
+connectDB();
+
+const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+app.use(cookieParser());
+/*express.json(): Parses incoming JSON request bodies (e.g., for APIs).
+express.urlencoded(): Parses form data (from HTML forms).
+cookieParser(): Parses cookie headers (e.g., for sessions or JWTs stored in cookies).*/
+
+app.use('/api/users',userRoutes);
+
+app.listen(port, () => console.log("Server running on port " + port));
+```
+
+<h2>userModel.js - Model and Schema of the User Database</h2>
+
+```jsx
+//packages
+import mongoose, { mongo } from "mongoose";
+
+const userSchema = mongoose.Schema({
+  username: {type:String,required:true},
+  email: {type:String,required:true,unique:true},
+  password: {type:String,required:true},
+  isAdmin: {type:Boolean,required:true,default:false}
+},
+{timestamps:true}); //timestamps - Gives specific time when we delete or update user
+
+const User = mongoose.model('User',userSchema);
+
+export default User;
+```
+
+<h2>userRoutes.js - Contains the route for every links</h2>
+
+```jsx
+import express from "express";
+import { createUser,loginUser,logoutCurrentUser,getAllUsers,getCurrentUserProfile,updateCurrentUserProfile,
+         deleteUserById,getUserById,updateUserById } from "../controllers/userController.js";
+import { authenticate,authorizedAdmin } from "../middlewares/authMiddleware.js";
+const router = express.Router()
+
+//createUser is a controller which is handled by asyncHandler
+//If the user is authenticated and authorized, we get all the users
+router.route('/').post(createUser).get(authenticate,authorizedAdmin,getAllUsers); 
+router.post('/auth',loginUser);
+router.post('/logout',logoutCurrentUser);  
+
+//The user can change profile only if he is authenticated
+router.route('/profile').get(authenticate,getCurrentUserProfile).put(authenticate, updateCurrentUserProfile);
+
+//Admin routes
+router.route('/:id')
+  .delete(authenticate,authorizedAdmin,deleteUserById)
+  .get(authenticate,authorizedAdmin,getUserById)
+  .put(authenticate,authorizedAdmin,updateUserById);
+
+export default router;
+```
+
+<h2>asyncHandler - A middleare which handles all errors of async functions</h2>
+
+```jsx
+//asyncHandler is a smart way to handle errors in async route handlers without repetitive try/catch blocks.
+/*
+Takes an async function (fn) as an argument.
+Executes it and automatically catches errors, passing them to the response handler.
+Prevents the app from crashing due to unhandled promise rejections.
+*/
+
+const asyncHandler = (fn) => (req,res,next) => {
+  Promise.resolve(fn(req,res,next)).catch(error => {
+    res.status(500).json({message: error.message});
+  });
+};
+
+export default asyncHandler;
+```
+
+<h2>authMiddleWare - A middle wrae which checks for authentication and authorization of users </h2>
+
+```jsx
+import jwt from "jsonwebtoken";
+import User from "../models/userModel.js";
+import asyncHandler from "./asyncHandler.js";
+
+//Authenticate
+const authenticate = asyncHandler(async(req,res,next) => {
+  let token;
+
+  //Read jwt from jwt cookie
+  token = req.cookies.jwt;
+
+  if(token) {
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET); //Verifies the token is valid and decodes it using the secret key.
+      //Finds the user in the database and attaches their data to req.user, excluding the password.
+      req.user = await User.findById(decoded.userId).select('-password');
+      next();
+      
+    } catch (error) {
+      res.status(401);
+      throw new Error("Not authorized, token failed!")
+    }
+  }else {
+    res.status(401);
+    throw new Error("Not authorized, no token!")
+  }
+});
+
+//Check for admin
+const authorizedAdmin = (req,res,next) => {
+  if(req.user && req.user.isAdmin) {
+    next();
+  }else {
+    res.status(401).send("Not authorized as an admin")
+  }
+};
+
+export {authenticate,authorizedAdmin};
+```
+
+<h2>createToken.js - Creates token for each user logins</h2>
+
+```jsx
+import jwt from "jsonwebtoken";
+
+const generateToken = (res,userId) => {
+
+  //Token creation
+  const token = jwt.sign({userId},process.env.JWT_SECRET,{expiresIn: "30d"});
+
+  //Set JWT as an HTTP only cookie
+  //Anytime you create a user, you have to pass the header as a cookie
+  res.cookie('jwt',token,{
+    httpOnly: true,
+    secure: process.env.NODE_ENV !== 'development',
+    sameSite: "strict",
+    maxAge: 30 * 24 * 60 * 60 * 1000 //30 days
+  });
+
+  return token;
+}
+
+export default generateToken;
+```
+
+<h2>userController.js - Contains the logic of each functions required to run the backend</h2>
+
+```jsx
+import User from "../models/userModel.js";
+import asyncHandler from "../middlewares/asyncHandler.js"
+import bcrypt from "bcryptjs";
+import createToken from '../utils/createToken.js'
+
+const createUser = asyncHandler(async(req,res) => {
+  const {username,email,password} = req.body;
+  
+  //Validations
+  if(!username || !email || !password) {
+    throw new Error("Please fill all the inputs");
+  }
+
+  const userExists = await User.findOne({email}); //mongoose method to find data
+  if(userExists){
+    res.status(400).send("User already exists!");
+  }
+
+  //Handling password visibilty by salting and hashing it
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password,salt);
+
+  const newUser = new User({username,email,password: hashedPassword}); //password should be visible as hashedPassword
+
+  try {
+
+    await newUser.save(); //mongoose method to store data
+    //Token creation
+    createToken(res, newUser._id);
+
+    res.status(201).json({
+      _id: newUser._id, 
+      username: newUser.username, 
+      email: newUser.email, isAdmin: 
+      newUser.isAdmin
+    });
+
+  } catch (error) {
+    res.status(400);
+    throw new Error("Invalid user data")
+  }
+
+});
+
+const loginUser = asyncHandler(async(req,res) => {
+  const {email,password} = req.body;
+
+  const existingUser = await User.findOne({email});
+
+  if(existingUser) {
+    const isPasswordValid = await bcrypt.compare(password, existingUser.password);
+
+    if(isPasswordValid) {
+      createToken(res,existingUser._id);
+
+      res.status(201).json({
+      _id: existingUser._id, 
+      username: existingUser.username, 
+      email: existingUser.email, isAdmin: 
+      existingUser.isAdmin
+    });
+
+    return;
+    }
+  }
+
+});
+
+const logoutCurrentUser = asyncHandler(async(req,res) => {
+  res.cookie('jwt','', {
+    httpOnly: true,
+    expires: new Date(0),  // Set to past to expire it
+  })
+  res.status(200).json({
+    message: "Logged out successfully"
+  });
+});
+
+const getAllUsers = asyncHandler(async(req,res) => {
+  const users = await User.find({});
+  res.json(users);
+})
+
+const getCurrentUserProfile = asyncHandler(async(req,res) => {
+  const user = await User.findById(req.user._id);
+
+  if(user) {
+    res.json({
+      _id: user._id,
+      username: user.username,
+      email: user.email
+    })
+  }else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
+
+const updateCurrentUserProfile = asyncHandler(async(req,res) => {
+  const user = await User.findById(req.user._id);
+
+  if(user) {
+    user.username = req.body.username || user.username;
+    user.email = req.body.email || user.email;
+    
+    if(req.body.password) {
+      //Handling password visibilty by salting and hashing it
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(req.body.password,salt);
+      user.password = hashedPassword;
+    }
+
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      username: updatedUser.username,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin
+    });
+  }else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+})
+
+const deleteUserById = asyncHandler(async(req,res) => {
+  const user = await User.findById(req.params.id);
+
+  if(user) {
+    if(user.isAdmin) {
+      res.status(400);
+      throw new Error("Cannot delete Admin!");
+    }
+    await User.deleteOne({_id: user._id})
+    res.json({message: "User Deleted"})
+  }else {
+    res.status(404);
+    throw new Error("User not found")
+  }
+
+});
+
+const getUserById = asyncHandler(async(req,res) => {
+  const user = await User.findById(req.params.id).select('-password');
+
+  if(user) {
+    res.json(user);
+  }else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+})
+
+const updateUserById = asyncHandler(async(req,res) => {
+  const user = await User.findById(req.params.id);
+
+  if(user) {
+    user.username = req.body.username || user.username;
+    user.email = req.body.email || user.email;
+    user.isAdmin = Boolean(req.body.isAdmin)
+
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      username: updatedUser.username,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin
+    });
+  }else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+  
+})
+
+export {createUser,loginUser,logoutCurrentUser,getAllUsers,getCurrentUserProfile,updateCurrentUserProfile,deleteUserById
+        ,getUserById,updateUserById};
+```
+
 <h1>Frontend of Users</h1>
 <p>Create folders in frontend src</p>
 <ul>
