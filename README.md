@@ -272,13 +272,14 @@ Do all necessary commands and create an index.css and tailwind in App.jsx and do
 </ul>
 <p>Provide Navigation css</p>
 <h2>Setup of main.jsx</h2>
+
 ```jsx
 import React from 'react';
 import ReactDOM from "react-dom/client";
 import App from './App.jsx';
 import './index.css';
-import { Route, RouterProvider, createRoutesFromElements } from 'react-router';
-import { createBrowserRouter } from 'react-router';
+import { Route, RouterProvider, createRoutesFromElements } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
