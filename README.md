@@ -247,3 +247,17 @@ Do all necessary commands and create an index.css and tailwind in App.jsx and do
 <p>Test in postman with a new put request to update user profile</p>
 <img src="./Images/updateProfile.png">
 
+<h2>Deleting specific user from admin side</h2>
+<p>Create a delete user by id route and provide deleteUser logic</p>
+<p>Test in postman with delete</p>
+<img src="./Images/deleteUser.png">
+
+<h2>Getting specific user from admin side</h2>
+<p>Adding a get method to getUserById on the same id route</p>
+<p>Provide logic for getUserById and test in Postman</p>
+<img src="./Images/getUser.png">
+
+<h2>Updating specific user from admin side</h2>
+<p>Adding a put method to getUserById on the same id route</p>
+<p>Provide logic for updateUser and test in Postman</p>
+<img src="./Images/updateUser.png">
