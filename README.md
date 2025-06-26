@@ -792,3 +792,7 @@ export default store;
 <p>2. On success → response is passed to setCredentials</p>
 <p>3. setCredentials updates Redux store and saves data to localStorage</p>
 <p>4. Now the app knows the user is logged in via auth.userInf</p>
+
+<h2>Navigations.jsx</h2>
+<p>Now implement useSelector,useDispacth and useLoginMutation that we created in a button</p>
+<p>Open main.jsx and import the provider and store and createRoot for the store</p>

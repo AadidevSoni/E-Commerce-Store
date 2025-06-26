@@ -4,6 +4,8 @@ import App from './App.jsx'
 import './index.css';
 import {Route, RouterProvider,createRoutesFromElements} from 'react-router'
 import { createBrowserRouter } from 'react-router';
+import { Provider } from 'react-redux';
+import store from './redux/store.js'
 
 /*
 createRoutesFromElements(...): Converts JSX <Route> elements to route configs.
@@ -23,5 +25,7 @@ ReactDOM.createRoot(...): Initializes the app (React 18 style).
 */
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
+  <Provider store = {store}>
+    <RouterProvider router={router} />
+  </Provider>
 );
