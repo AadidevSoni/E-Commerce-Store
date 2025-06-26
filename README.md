@@ -664,3 +664,131 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <RouterProvider router={router} />
 );
 ```
+<p>Create App.jsx with all the different elements</p>
+<p>Modifying Navigation</p>
+<p> Import all Symbols and code the sidebar with all 6 icons and links with transitions</p>
+
+<h2>Setup for Backend API Routes</h2>
+<p>Using Redux Toolkit and RTK Query to manage authentication and API interactions</p>
+<p>Inside redux, create api with apiSlice and usersApiSlice.jsx and features folder, constants.js and store.js</p>
+<h2>constants.js</h2>
+<p>This file holds API endpoint constants used across your app.</p>
+<ul>  
+  <li>
+    BASE_URL: The base URL for all API requests. Empty string means same-origin.
+  </li>
+  <li>
+    USERS_URL: Endpoint for all user-related requests.
+  </li>
+</ul>
+
+```jsx
+export const BASE_URL = '';
+export const USERS_URL = '/api/users';
+```
+
+<h2>apiSlice.js</h2>
+<p>This sets up the base API configuration using RTK Query.</p>
+
+```jsx
+import { fetchBaseQuery, createApi } from '@reduxjs/toolkit/query/react'
+import { BASE_URL } from '../constants'
+
+const baseQuery = fetchBaseQuery({ baseUrl: BASE_URL });
+
+export const apiSlice = createApi({
+  baseQuery,
+  tagTypes: ['Product', 'Order', 'User', 'Category'], // Caching tags
+  endpoints: () => ({}), // Empty for now, injected later
+});
+```
+
+<h2>userApiSlice.js</h2>
+<p>Defines API endpoints for user-related operations, specifically login.</p>
+<p>injectEndpoints: Adds the login mutation to the shared apiSlice.</p>
+
+```jsx
+import { apiSlice } from "./apiSplice";
+import { USERS_URL } from "../constants";
+
+export const userApiSlice = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    login: builder.mutation({
+      query: (data) => ({
+        url: `${USERS_URL}/auth`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+  }),
+});
+
+export const { useLoginMutation } = userApiSlice;
+```
+
+<h2>authSlice.js</h2>
+<p>This is your Redux slice for authentication state.</p>
+<p>Initializes state from localStorage, so users stay logged in after refreshing.</p>
+<p>setCredentials: Updates the Redux state and saves user info in local storage.</p>
+<p>logout: Clears state and all local storage (logs out user).</p>
+
+```jsx
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+  userInfo: localStorage.getItem('userInfo')?JSON.parse(localStorage.getItem('userInfo')):null,
+};
+
+const authSlice = createSlice({
+  name: 'auth',
+  initialState,
+    reducers: {
+      setCredentials: (state,action) => {
+        state.userInfo = action.payload;
+        localStorage.setItem("userInfo",JSON.stringify(action.payload));
+        const expirationTime = new Date().getTime() + 30  * 24 * 60 * 60 * 1000;
+        localStorage.setItem("expirationTime",expirationTime);
+      },
+
+      logout: (state) => {
+        state.userInfo = null;
+        localStorage.clear();
+      },
+    },
+});
+
+export const {setCredentials,logout} = authSlice.actions;
+
+export default authSlice.reducer;
+```
+
+<h2>store.js</h2>
+<p>Creates the Redux store and sets up RTK Query middleware.</p>
+<p>Combines all reducers (auth, apiSlice) into the store.</p>
+<p>Adds RTK Query middleware for API caching and hooks.</p>
+<p>Enables Redux DevTools for easier debugging.</p>
+
+```jsx
+import { configureStore } from "@reduxjs/toolkit";
+import { setupListeners } from "@reduxjs/toolkit/query";
+import { apiSlice } from "./api/apiSplice";
+import authReducer from './features/auth/authSlice'
+
+const store = configureStore({
+  reducer: {
+    [apiSlice.reducerPath]: apiSlice.reducer,
+    auth: authReducer,
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),
+  devTools: true,
+});
+
+setupListeners(store.dispatch);
+export default store;
+```
+
+<h2>🔁 Flow Summary (Login Example):</h2>
+<p>1. UI calls useLoginMutation → triggers POST /api/users/auth</p>
+<p>2. On success → response is passed to setCredentials</p>
+<p>3. setCredentials updates Redux store and saves data to localStorage</p>
+<p>4. Now the app knows the user is logged in via auth.userInf</p>
